@@ -1,14 +1,9 @@
 -- ============================================================
 -- Assignment 05 - Library Borrowing and Returning Management
--- File 3/4: queries.sql  (10 independent queries)
--- Convention: date ranges use half-open intervals [from, to) so no
--- data is missed.
 --   January 2025 : loan_date >= '2025-01-01' AND < '2025-02-01'
 --   Q1 2025      : loan_date >= '2025-01-01' AND < '2025-04-01'
 --   Year 2025    : loan_date >= '2025-01-01' AND < '2026-01-01'
 --   (loan_date is used for loans; payment_date is used for payments)
--- "Confirmed cost" = return_records.fine_amount
--- ============================================================
 USE library_mini;
 
 -- ------------------------------------------------------------
@@ -66,8 +61,6 @@ ORDER BY r.reader_id;
 -- Query 4. Average incurred cost per Completed loan for each category,
 --          over all time; only categories that have incurred a cost.
 -- "Has incurred a cost" = the category's total fine_amount > 0 (HAVING).
--- The average is still computed over ALL Completed loans of the
--- category, including loans whose fine is 0.
 -- A category whose fines are all 0 (e.g. Children's Books) is excluded.
 -- Expected: 1=17500.00 | 2=7500.00 | 3=7400.00 | 4=2666.67
 --           (Children's Books is not shown)
@@ -136,7 +129,7 @@ ORDER BY r.reader_id;
 
 -- ------------------------------------------------------------
 -- Query 8. All readers ordered by total confirmed cost, descending
---          (regardless of payment); ties are broken by id ascending.
+--          (regardless of payment);
 -- Costs are aggregated per reader BEFORE joining, so payments are not
 -- needed and nothing is double counted.
 -- Expected: 1=35000, 5=30000, 2=17000, 4=10000, 11=10000 (tie, id ascending),
