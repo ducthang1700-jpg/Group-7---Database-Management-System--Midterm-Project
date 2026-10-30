@@ -1,11 +1,7 @@
 -- ============================================================
 -- Assignment 05 - Library Borrowing and Returning Management
 -- File 2/4: seed.sql  (sample data + data verification queries)
--- Run after schema.sql. All data is fictional, not real personal data.
--- ============================================================
 USE library_mini;
-
--- ------------------------------------------------------------
 -- 1. categories (5)
 --    Category 5 (Children's Books) has no loan in Q1/2025
 -- ------------------------------------------------------------
