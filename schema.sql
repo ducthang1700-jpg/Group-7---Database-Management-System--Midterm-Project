@@ -1,10 +1,6 @@
 -- ============================================================
 -- Assignment 05 - Library Borrowing and Returning Management
 -- File 1/4: schema.sql  (database, tables, keys and constraints)
--- Requires: MySQL 8.0.16 or later (CHECK constraints are enforced
---           only from this version onward)
--- Run order: schema.sql -> seed.sql -> queries.sql -> views.sql
--- ============================================================
 
 -- Drop any previous copy so the script can be re-run on a fresh setup
 DROP DATABASE IF EXISTS library_mini;
@@ -12,10 +8,7 @@ CREATE DATABASE library_mini
     CHARACTER SET utf8mb4
     COLLATE utf8mb4_unicode_ci;
 USE library_mini;
-
--- ------------------------------------------------------------
 -- 1. categories: book categories
--- ------------------------------------------------------------
 CREATE TABLE categories (
     category_id INT          NOT NULL AUTO_INCREMENT,
     name        VARCHAR(100) NOT NULL,
@@ -26,7 +19,6 @@ CREATE TABLE categories (
 
 -- ------------------------------------------------------------
 -- 2. copies: book copies (each copy belongs to exactly one category)
--- ------------------------------------------------------------
 CREATE TABLE copies (
     copy_id     INT          NOT NULL AUTO_INCREMENT,
     title       VARCHAR(200) NOT NULL,
