@@ -74,11 +74,3 @@ Running `seed.sql` prints three verification tables (A: record counts, B: integr
 Expected results of the 10 queries are written in the comments above each query in `queries.sql`. The verification queries at the bottom of `views.sql` confirm that the views have the right number of rows and that totals match the base tables (total cost 110000, total paid 96000).
 
 To test the constraints, remove the comment marks of one illustration at the bottom of `seed.sql` at a time and run it in a separate session; each statement must raise an error.
-
-## Members
-
-| Name | Student ID | Responsibilities |
-|---|---|---|
-| Nguyen Quang Cuong | 11230740 | _(to be filled in)_ |
-| Nguyen Nho Thang | 11230778 | _(to be filled in)_ |
-| Duong Duc Thang | 11230777 | _(to be filled in)_ |
