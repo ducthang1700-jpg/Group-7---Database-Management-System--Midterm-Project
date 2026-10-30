@@ -9,7 +9,6 @@ USE library_mini;
 -- LEFT JOIN return_records keeps loans without a return record
 -- (their fee is NULL). return_records.loan_id is UNIQUE, so the
 -- join never duplicates a loan row.
--- ------------------------------------------------------------
 CREATE OR REPLACE VIEW v_detail AS
 SELECT l.loan_id,
        l.loan_date,
@@ -30,7 +29,6 @@ LEFT JOIN return_records rr ON rr.loan_id = l.loan_id;
 -- ------------------------------------------------------------
 -- v_group_summary: one row per category (categories with no loans
 -- are kept). Totals that do not occur are shown as 0 (COALESCE).
--- ------------------------------------------------------------
 CREATE OR REPLACE VIEW v_group_summary AS
 SELECT g.category_id,
        g.name AS category_name,
@@ -70,8 +68,6 @@ LEFT JOIN (
     JOIN payments pm ON pm.loan_id = l.loan_id
     GROUP BY l.reader_id
 ) p ON p.reader_id = r.reader_id;
-
--- ============================================================
 -- Queries to verify the VIEWs
 -- ============================================================
 
