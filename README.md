@@ -2,9 +2,13 @@
 
 Database assignment 05. A relational database design and implementation in MySQL for managing library readers, book copies, loan registrations, return records and the fees collected for overdue or damaged books.
 
+**Course:** Database Management System | **Group:** 7 | **Instructor:** Tran Duc Minh
+**School:** School of Advanced Education Program, National Economics University
+
 ## Technologies
 
 - MySQL 8.0.16 or later (CHECK constraints are enforced only from this version).
+- MySQL Workbench to run the scripts and view the result grids.
 - No application or user interface is included.
 
 ## Repository structure
@@ -29,7 +33,7 @@ mysql -u <user> -p --default-character-set=utf8mb4 < views.sql
 
 In MySQL Workbench, open and execute the four files one after another in the same order.
 
-> Warning: `schema.sql` contains `DROP DATABASE IF EXISTS library_mini;`, which deletes any existing database with that name.
+> **Warning:** `schema.sql` contains `DROP DATABASE IF EXISTS library_mini;`, which deletes any existing database with that name.
 
 ## Tables
 
@@ -37,7 +41,7 @@ In MySQL Workbench, open and execute the four files one after another in the sam
 |---|---|---|
 | `categories` | `category_id` | `name` UNIQUE |
 | `copies` | `copy_id` | `category_id` references `categories`; `barcode` UNIQUE |
-| `readers` | `reader_id` | |
+| `readers` | `reader_id` | none |
 | `loans` | `loan_id` | `reader_id` references `readers`; `copy_id` references `copies`; `status` ENUM (`Pending`, `Active`, `Completed`, `Cancelled`); CHECK `due_date >= loan_date` |
 | `return_records` | `return_id` | `loan_id` references `loans` and is UNIQUE (at most one return record per loan); CHECK `fine_amount >= 0` |
 | `payments` | `payment_id` | `loan_id` references `loans`; CHECK `amount > 0`; `method` ENUM (`Cash`, `BankTransfer`, `Card`) |
@@ -73,4 +77,24 @@ Running `seed.sql` prints three verification tables (A: record counts, B: integr
 
 Expected results of the 10 queries are written in the comments above each query in `queries.sql`. The verification queries at the bottom of `views.sql` confirm that the views have the right number of rows and that totals match the base tables (total cost 110000, total paid 96000).
 
-To test the constraints, remove the comment marks of one illustration at the bottom of `seed.sql` at a time and run it in a separate session; each statement must raise an error.
+To test the constraints, remove the comment marks of one illustration at the bottom of `seed.sql` at a time and run it in a separate session; each statement must raise an error. The eight invalid statements and the errors MySQL returns:
+
+| # | Invalid statement | Constraint | MySQL error |
+|---|---|---|---|
+| 1 | Copy with barcode `BC-0001` again | UNIQUE `barcode` | 1062 |
+| 2 | Loan with `due_date` before `loan_date` | CHECK `ck_loans_due_date` | 3819 |
+| 3 | Loan with status `Lost` | ENUM `status` | 1265 |
+| 4 | Second return record for loan 1 | UNIQUE `loan_id` | 1062 |
+| 5 | Return record with `fine_amount = -1` | CHECK `ck_return_fine` | 3819 |
+| 6 | Payment with `amount = 0` | CHECK `ck_payments_amount` | 3819 |
+| 7 | Payment with method `Cheque` | ENUM `method` | 1265 |
+| 8 | Loan for reader 999 | FOREIGN KEY | 1452 |
+
+## Members
+
+| Name | Student ID |
+|---|---|
+| Nguyen Quang Cuong | 11230740 |
+| Nguyen Nho Thang | 11230778 |
+| Duong Duc Thang | 11230777 |
+
